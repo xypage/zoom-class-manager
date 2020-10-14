@@ -1,7 +1,9 @@
 import webbrowser
 import time
+import json
 
-schedule = 
+with open("output.json") as f:
+    schedule = json.load(f)["schedule"]
 
 # schedule has a sub array for each day
 #   each day has sub arrays for each class
@@ -15,6 +17,8 @@ weekday = localtime.tm_wday
 hour = localtime.tm_hour
 minute = localtime.tm_min
 
+hour = 11
+minute = 30
 
 todaysClasses = schedule[weekday]
 upcomingCourse = ""
