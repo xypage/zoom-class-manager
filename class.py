@@ -1,9 +1,19 @@
 import webbrowser
 import time
 import json
+from scheduleFormatter import scheduleFormatter
 
-with open("output.json") as f:
-    schedule = json.load(f)
+try:
+    f = open("output.json")
+except FileNotFoundError:
+    sf = scheduleFormatter("input.txt")
+    sf.makeOutput()
+    f = open("output.json")
+except:
+    print("Unknwon error in try except block")
+schedule = json.load(f)
+f.close()
+
 
 # schedule has a sub array for each day
 #   each day has sub arrays for each class
@@ -16,7 +26,6 @@ localtime = time.localtime(time.time())
 weekday = localtime.tm_wday
 hour = localtime.tm_hour
 minute = localtime.tm_min
-
 
 todaysClasses = schedule[str(weekday)]
 upcomingCourse = ""
@@ -61,8 +70,8 @@ else:
         print("This class is", hoursLong, "hours and", minutesLong, "minutes long.")
 
     
-    #webbrowser.open(upcomingCourse["link"])
+    webbrowser.open(upcomingCourse["link"])
         
 # input is here so it'll pause when this opens in terminal, if running in IDLE then
 # comment it out
-#input("Got it?\n")
+input("Got it?\n")

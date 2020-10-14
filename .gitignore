@@ -1,4 +1,8 @@
-input.txt
-output.txt
-output.json
+#Folders
+__pycache__/
+
+
+# Files
+*.txt
+*.json
 scheduleFormatterOLD.py
