@@ -1,5 +1,13 @@
+import json
+
 #filler for all days of week
-week = [[],[],[],[],[]]
+week = {
+    0: [],
+    1: [],
+    2: [],
+    3: [],
+    4: []
+}
 
 dayLetters = ["m", "t", "w", "r", "f"]
 
@@ -17,63 +25,57 @@ dayLetters = ["m", "t", "w", "r", "f"]
 f = open("input.txt")
 contents = f.read().split("\n")
 for i in range(0, len(contents), 2):
+    course = {}
+    course["link"] = contents[i+1]
+
+
     desc = contents[i]
-    link = "\"" + contents[i + 1] + "\""
     desc = desc.split(" ")
-    print(link)
-    
-    daysString = desc[0]
-    days = []
-    for letter in daysString:
-        days.append(dayLetters.index(letter.lower()))
 
 
     startHour = desc[1][:-2]
     startMinute = desc[1][-2:]
     endHour = desc[2][:-2]
     endMinute = desc[2][-2:]
-    times = [[int(startHour), int(startMinute)], [int(endHour), int(endMinute)]]
+    course["start"] = {"hour": startHour,
+                        "minute": startMinute
+                        }
+    course["end"] = {"hour": endHour,
+                        "minute": endMinute
+                        }
 
-    
-    name = "\""
+
+
+    name = ""
     for chunk in desc[3:]:
         name += chunk + " "
-    name += "\""
+    course["name"] = name
+
+    daysString = desc[0]
+    days = []
+    for letter in daysString:
+        days.append(dayLetters.index(letter.lower()))
+
     for day in days:
-        week[day].append([times, link, name])
+        week[day].append(course)
     
 
 # sorting
-for day in week:
+for dayInd in range(5):
+    day = week[dayInd]
     for i in range(len(day)):
-        minVal = day[i][0][0]
+        minVal = day[i]["start"]
         minInd = i
         for j in range(i, len(day)):
-            if(day[j][0][0] < minVal):
+            if(day[j]["start"]["hour"] < minVal["hour"] or 
+            (day[j]["start"]["hour"] == minVal["hour"] and day[j]["start"]["minute"] > minVal["minute"])):
                 minInd = j
-                minVal = day[j][0][0]
+                minVal = day[j]["start"]
         temp = day[i]
         day[i] = day[minInd]
         day[minInd] = temp
 
 # write it to a file
-with open("output.txt", "w") as text_file:
-    text_file.write("[")
-    for dayInd in range(5):
-        text_file.write("[")
-        dayLen = len(week[dayInd])
-        for classInd in range(dayLen):
-            curr = week[dayInd][classInd]
-            text_file.write(f"[[[{curr[0][0][0]},{curr[0][0][1]}],[{curr[0][1][0]},{curr[0][1][1]}]],{curr[1]},{curr[2]}]")
-            
-            # If it's last class, don't put comma after closing bracket
-            if(classInd != dayLen - 1):
-                text_file.write(",")
-            else:
-                text_file.write("")
-                
-        # If it's the last day, don't put comma after closing bracket
-        if(dayInd != 4):
-            text_file.write("],")
-        else:
-            text_file.write("]]")
+with open("output.json", "w") as text_file:
+    JSONWeek = json.dumps(week)
+    text_file.write(JSONWeek)
