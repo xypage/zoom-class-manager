@@ -12,7 +12,6 @@ For the time being it's a little messy in terms of functionality, but it does wo
   * The second line is just the zoom link, be warned that you have to make sure you have a link that isn't session based. 
     * If your professors share zoom links as the long announcement, that one works well, however if it's the page that just has the join button, I got it to work by joining outside of class time, then you go to a URL that simplifies and has #success at the end, copy that link but leave out the #success part and it should work.
   * There shouldn't be any empty lines, they should all either hold the class description, or the zoom link.
-    * And just to reiterate it, in the line describing the class, there should be a space after the days it meets (mtwrf), a space after the start time, after the end time, and then you're free to use them as much as you'd like in the class name.
-* Now you need to run scheduleFormatter.py, it should make a file called output.txt at the end.
-* Go into output.txt, copy it's entire contents, and then go into class.py and paste it after schedule.
-* Now you're good to go, whenever you run class.py it should automatically open the zoom link in your browser for the right class, it'll tell you how long till the class if it hasn't started, or how much longer there is if it has, and simply hit enter/return to dismiss the terminal.
+    * And just to reiterate it, in the line describing the class, there should be a space after the days it meets (mtwrf), a space after the start time, after the end time, and then you're free to use them as many spaces as you'd like in the class name.
+* Now you're good to go, the first time you run class.py it'll generate output.json and use it, every time after that it'll use the one that's already been made. W
+* Whenever you run class.py it should automatically open the zoom link in your browser for the right class, it'll tell you how long till the class if it hasn't started, or how much longer there is if it has. Simply hit enter/return to dismiss the terminal, as it waits for input to make sure you can read it.
