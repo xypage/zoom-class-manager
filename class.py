@@ -40,9 +40,9 @@ for course in todaysClasses:
 if(upcomingCourse == ""):
     print("Done for the day!")
 else:
-    print(weekday, hour, minute, upcomingCourse)
-    start = {"hour": int(upcomingCourse["start"]["hour"]), "minute": int(upcomingCourse["start"]["hour"])}
-    end = {"hour": int(upcomingCourse["end"]["hour"]), "minute": int(upcomingCourse["end"]["hour"])}
+    #print(weekday, hour, minute, upcomingCourse)
+    start = {"hour": int(upcomingCourse["start"]["hour"]), "minute": int(upcomingCourse["start"]["minute"])}
+    end = {"hour": int(upcomingCourse["end"]["hour"]), "minute": int(upcomingCourse["end"]["minute"])}
     if((start["hour"] < hour) or (start["hour"] == hour and start["minute"] < minute)):
         print("Class has already started, opening ", upcomingCourse["name"], sep="")
 
