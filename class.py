@@ -37,8 +37,16 @@ for course in todaysClasses:
         upcomingCourse = course
         break
 
-if(upcomingCourse == ""):
+if(upcomingCourse == "" and weekday != 4):
     print("Done for the day!")
+    print("Tomorrow you have:")
+    tomorrowsClasses = schedule[str((weekday + 1) % 5)]
+    for course in tomorrowsClasses:
+        print(f'\t{course["name"]} from {course["start"]["hour"]}:{course["start"]["minute"]} to {course["end"]["hour"]}:{course["end"]["minute"]}')
+
+elif(upcomingCourse == "" and weekday == 4):
+    print("Done for the week!")
+
 else:
     #print(weekday, hour, minute, upcomingCourse)
     start = {"hour": int(upcomingCourse["start"]["hour"]), "minute": int(upcomingCourse["start"]["minute"])}
